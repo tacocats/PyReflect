@@ -8,3 +8,13 @@ Download the correct RemoteInput dll from https://github.com/brandon-t/reflectio
 ## About 
 
 This is a port of https://github.com/Brandon-T/Reflection to Python.
+
+
+## Current Goals
+
+- [ ] Completely implement RemoteInput 
+- [ ] Completely port Reflection include
+
+## Eventual goals
+
+- [ ] Port SRL to Python
