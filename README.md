@@ -14,7 +14,3 @@ This is a port of https://github.com/Brandon-T/Reflection to Python.
 
 - [ ] Completely implement RemoteInput 
 - [ ] Completely port Reflection include
-
-## Eventual goals
-
-- [ ] Port SRL to Python
