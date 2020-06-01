@@ -1,6 +1,7 @@
 import platform
 from ctypes import *
 
+# TODO Create ImageData Structure
 class ImageData:
     """
     typedef struct ImageData
@@ -16,6 +17,7 @@ class ImageData:
     """
     pass
 
+# TODO Create EIOS Structure
 class EIOS:
     """
     typedef struct EIOS
@@ -45,9 +47,26 @@ class RemoteInput:
     ## EIOS
 
     def EIOS_RequestTarget(self, initstr):
-        pass
+        """ 
+        EIOS* EIOS_RequestTarget(const char* initargs) noexcept;
+
+        :param initstr: TODO 
+        :type initstr: String
+
+        :return: EIOS Target 
+        :rtype: EIOS
+        """
+        self.ri.EIOS_RequestTarget.argtypes = [c_char_p]
+        self.ri.EIOS_RequestTarget.rtype = EIOS
+
+        return self.EIOS_RequestTarget(bytes(initstr, encoding='utf8'))
+
 
     def EIOS_ReleaseTarget(self, target):
+        """
+        void EIOS_ReleaseTarget(EIOS* eios) noexcept;
+
+        """
         pass
 
     def EIOS_GetTargetDimensions(self, target):
@@ -80,67 +99,67 @@ class RemoteInput:
     def EIOS_SetInputEnabled(self, target, enabled):
         pass
 
-    def EIOS_GetMousePosition(self, EIOS* eios, std::int32_t* x, std::int32_t* y):
+    def EIOS_GetMousePosition(self, target):
         pass
 
-    def EIOS_GetRealMousePosition(self, EIOS* eios, std::int32_t* x, std::int32_t* y):
+    def EIOS_GetRealMousePosition(self, target):
         pass
 
-    def EIOS_MoveMouse(self, EIOS* eios, std::int32_t x, std::int32_t y):
+    def EIOS_MoveMouse(self, target, x, y):
         pass
 
-    def EIOS_HoldMouse(self, EIOS* eios, std::int32_t x, std::int32_t y, std::int32_t button):
+    def EIOS_HoldMouse(self, target, x, y, button):
         pass
 
-    def EIOS_ReleaseMouse(self, EIOS* eios, std::int32_t x, std::int32_t y, std::int32_t button):
+    def EIOS_ReleaseMouse(self, target, x, y, button):
         pass
 
-    def EIOS_ScrollMouse(self, EIOS* eios, std::int32_t x, std::int32_t y, std::int32_t lines):
+    def EIOS_ScrollMouse(self, target, x, y, lines):
         pass
 
-    def EIOS_IsMouseButtonHeld(self, EIOS* eios, std::int32_t button):
+    def EIOS_IsMouseButtonHeld(self, target, button):
         pass
 
-    def EIOS_SendString(self, EIOS* eios, const char* string, std::int32_t keywait, std::int32_t keymodwait):
+    def EIOS_SendString(self, target, text, keywait, keymodwait):
         pass
 
-    def EIOS_HoldKey(self, EIOS* eios, std::int32_t key):
+    def EIOS_HoldKey(self, target, key):
         pass
 
-    def EIOS_ReleaseKey(self, EIOS* eios, std::int32_t key):
+    def EIOS_ReleaseKey(self, target, key):
         pass
 
-    def EIOS_IsKeyHeld(self, EIOS* eios, std::int32_t key):
+    def EIOS_IsKeyHeld(self, target, key):
         pass
 
-    def EIOS_GetKeyboardSpeed(self, EIOS* eios):
+    def EIOS_GetKeyboardSpeed(self, target):
         pass
 
-    def EIOS_SetKeyboardSpeed(self, EIOS* eios, std::int32_t speed):
+    def EIOS_SetKeyboardSpeed(self, target, speed):
         pass
 
-    def EIOS_GetKeyboardRepeatDelay(self, EIOS* eios):
+    def EIOS_GetKeyboardRepeatDelay(self, target):
         pass
 
-    def EIOS_SetKeyboardRepeatDelay(self, EIOS* eios, std::int32_t delay):
+    def EIOS_SetKeyboardRepeatDelay(self, target, delay):
         pass
 
-    def EIOS_PairClient(self, pid_t pid):
+    def EIOS_PairClient(self, pid):
         pass
 
-    def EIOS_KillClientPID(self, pid_t pid):
+    def EIOS_KillClientPID(self, pid):
         pass
 
-    def EIOS_KillClient(self, EIOS* eios):
+    def EIOS_KillClient(self, target):
         pass
 
-    def EIOS_KillZombieClients(self, ):
+    def EIOS_KillZombieClients(self):
         pass
 
-    def EIOS_GetClients(self, bool unpaired_only):
+    def EIOS_GetClients(self, unpaired_only):
         pass
 
-    def EIOS_GetClientPID(self, std::size_t index):
+    def EIOS_GetClientPID(self, index):
         pass
 
 
@@ -156,76 +175,77 @@ class RemoteInput:
         self.ri.EIOS_Inject.rtype = None
         self.ri.EIOS_Inject(bytes(process_name, encoding='utf8'))
 
-    def EIOS_Inject_PID(self, std::int32_t pid):
+    def EIOS_Inject_PID(self, pid):
         pass
 
-    def Reflect_GetEIOS(self, std::int32_t pid):
+    def Reflect_GetEIOS(self, pid):
         pass
 
-    def Reflect_Object(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    # TODO Implement below methods
+    #def Reflect_Object(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_IsSame_Object(self, EIOS* eios, jobject first, jobject second):
-        pass
+    #def Reflect_IsSame_Object(self, EIOS* eios, jobject first, jobject second):
+    #    pass
 
-    def Reflect_InstanceOf(self, EIOS* eios, jobject object, const char* cls):
-        pass
+    #def Reflect_InstanceOf(self, EIOS* eios, jobject object, const char* cls):
+    #    pass
 
-    def Reflect_Release_Object(self, EIOS* eios, jobject object):
-        pass
+    #def Reflect_Release_Object(self, EIOS* eios, jobject object):
+    #    pass
 
-    def Reflect_Release_Objects(self, EIOS* eios, jobject* objects, std::size_t amount):
-        pass
+    #def Reflect_Release_Objects(self, EIOS* eios, jobject* objects, std::size_t amount):
+    #    pass
 
-    def Reflect_Bool(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Bool(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Char(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Char(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Byte(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Byte(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Short(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Short(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Int(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Int(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Long(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Long(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Float(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Float(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Double(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Double(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_String(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc, char* output, std::size_t output_size):
-        pass
+    #def Reflect_String(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc, char* output, std::size_t output_size):
+    #    pass
 
-    def Reflect_Array(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Array(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Array_With_Size(self, EIOS* eios, jobject object, std::size_t* output_size, const char* cls, const char* field, const char* desc):
-        pass
+    #def Reflect_Array_With_Size(self, EIOS* eios, jobject object, std::size_t* output_size, const char* cls, const char* field, const char* desc):
+    #    pass
 
-    def Reflect_Array_Size(self, EIOS* eios, jarray array):
-        pass
+    #def Reflect_Array_Size(self, EIOS* eios, jarray array):
+    #    pass
 
-    def Reflect_Array_Index(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t index, std::size_t length):
-        pass
+    #def Reflect_Array_Index(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t index, std::size_t length):
+    #    pass
 
-    def Reflect_Array_Index2D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y):
-        pass
+    #def Reflect_Array_Index2D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y):
+    #    pass
 
-    def Reflect_Array_Index3D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z):
-        pass
+    #def Reflect_Array_Index3D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z):
+    #    pass
 
-    def Reflect_Array_Index4D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z, std::int32_t w):
-        pass
+    #def Reflect_Array_Index4D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z, std::int32_t w):
+    #    pass
 
-    def Reflect_Array_Indices(self, EIOS* eios, jarray array, ReflectionArrayType type, std::int32_t* indices, std::size_t length):
-        pass
+    #def Reflect_Array_Indices(self, EIOS* eios, jarray array, ReflectionArrayType type, std::int32_t* indices, std::size_t length):
+    #    pass
 
 
