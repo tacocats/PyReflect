@@ -1,36 +1,6 @@
 import platform
 from ctypes import *
 
-# TODO Create ImageData Structure
-class ImageData:
-    """
-    typedef struct ImageData
-    {
-        std::int32_t parent_process_id;
-        std::int32_t parent_thread_id;
-        std::int32_t width;
-        std::int32_t height;
-        bool debug_graphics;
-        EIOSCommand command;
-        std::uint8_t args[4096 * 8];
-    } ImageData;
-    """
-    pass
-
-# TODO Create EIOS Structure
-class EIOS:
-    """
-    typedef struct EIOS
-    {
-        std::int32_t pid;
-        std::int32_t width;
-        std::int32_t height;
-        std::intptr_t local_storage;
-        std::unique_ptr<ControlCenter> control_center;
-    } EIOS;
-    """
-    pass
-
 class RemoteInput:
     """
     This class allows for python to access RemoteInput
@@ -66,6 +36,10 @@ class RemoteInput:
         """
         void EIOS_ReleaseTarget(EIOS* eios) noexcept;
 
+        :param target: The EIOS target
+        :type target: EIOS
+
+        :return: None
         """
         pass
 
