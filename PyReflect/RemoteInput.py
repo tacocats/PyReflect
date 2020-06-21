@@ -17,17 +17,17 @@ class RemoteInput:
     ## EIOS
 
     def EIOS_RequestTarget(self, initstr):
-        """ 
+        """
         EIOS* EIOS_RequestTarget(const char* initargs) noexcept;
 
-        :param initstr: TODO 
+        :param initstr: TODO
         :type initstr: String
 
-        :return: EIOS Target 
+        :return: EIOS Target
         :rtype: EIOS
         """
         self.ri.EIOS_RequestTarget.argtypes = [c_char_p]
-        self.ri.EIOS_RequestTarget.rtype = EIOS
+        self.ri.EIOS_RequestTarget.rtype = bytes
 
         return self.EIOS_RequestTarget(bytes(initstr, encoding='utf8'))
 
@@ -119,7 +119,14 @@ class RemoteInput:
         pass
 
     def EIOS_PairClient(self, pid):
-        pass
+        """
+        EIOS* EIOS_PairClient(pid_t pid) noexcept;
+        """
+
+        self.ri.EIOS_PairClient.argtypes = [c_int32]
+        self.ri.EIOS_PairClient.restype = bytes
+        return self.ri.EIOS_PairClient(pid)
+
 
     def EIOS_KillClientPID(self, pid):
         pass
@@ -130,11 +137,27 @@ class RemoteInput:
     def EIOS_KillZombieClients(self):
         pass
 
-    def EIOS_GetClients(self, unpaired_only):
-        pass
+    def EIOS_GetClients(self, unpaired_only=False):
+        """
+        std::size_t EIOS_GetClients(bool unpaired_only) noexcept;
+
+        :param unpaired_only: Should return only unparied clients or all clients
+        :type unpaired_only: bool
+
+        :return: injectedtargets
+        :rtype: Int
+        """
+
+        self.ri.EIOS_GetClientPID.argtypes = [c_bool]
+        self.ri.EIOS_GetClients.rtype = int
+        return self.ri.EIOS_GetClients(unpaired_only)
 
     def EIOS_GetClientPID(self, index):
-        pass
+
+        self.ri.EIOS_GetClientPID.argtypes = [c_int]
+        self.ri.EIOS_GetClientPID.rtype = int
+
+        return self.ri.EIOS_GetClientPID(index)
 
 
     ## Reflection
