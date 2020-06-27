@@ -9,7 +9,6 @@ if __name__ == "__main__":
     print("Creating instance of Remote Input")
     reflect = RemoteInput.RemoteInput()
 
-
     print("Injecting EIOS")
     reflect.EIOS_Inject()
 
@@ -24,5 +23,9 @@ if __name__ == "__main__":
     client_pid = reflect.EIOS_GetClientPID(0)
 
     print("Pairing with client")
+    # eiosptr or target
     eiosptr = reflect.EIOS_PairClient(client_pid)
     print(type(eiosptr))
+
+    print ("Releasing target")
+    reflect.EIOS_ReleaseTarget(target=eiosptr)

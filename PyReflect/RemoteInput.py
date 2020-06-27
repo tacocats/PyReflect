@@ -31,8 +31,7 @@ class RemoteInput:
 
         return self.EIOS_RequestTarget(bytes(initstr, encoding='utf8'))
 
-
-    def EIOS_ReleaseTarget(self, target):
+    def EIOS_ReleaseTarget(self, target: c_void_p) -> None:
         """
         void EIOS_ReleaseTarget(EIOS* eios) noexcept;
 
@@ -41,7 +40,8 @@ class RemoteInput:
 
         :return: None
         """
-        pass
+        self.ri.EIOS_ReleaseTarget.argtypes = [c_void_p]
+        self.ri.EIOS_ReleaseTarget(target)
 
     def EIOS_GetTargetDimensions(self, target):
         pass
@@ -124,9 +124,8 @@ class RemoteInput:
         """
 
         self.ri.EIOS_PairClient.argtypes = [c_int32]
-        self.ri.EIOS_PairClient.restype = bytes
+        self.ri.EIOS_PairClient.restype = c_void_p
         return self.ri.EIOS_PairClient(pid)
-
 
     def EIOS_KillClientPID(self, pid):
         pass
@@ -148,7 +147,7 @@ class RemoteInput:
         :rtype: Int
         """
 
-        self.ri.EIOS_GetClientPID.argtypes = [c_bool]
+        self.ri.EIOS_GetClients.argtypes = [c_bool]
         self.ri.EIOS_GetClients.rtype = int
         return self.ri.EIOS_GetClients(unpaired_only)
 
@@ -159,10 +158,9 @@ class RemoteInput:
 
         return self.ri.EIOS_GetClientPID(index)
 
-
     ## Reflection
 
-    def EIOS_Inject(self, process_name: str='JagexLauncher.exe'):
+    def EIOS_Inject(self, process_name: str = 'JagexLauncher.exe'):
         """
         void EIOS_Inject(const char* process_name) noexcept;
 
@@ -179,70 +177,68 @@ class RemoteInput:
         pass
 
     # TODO Implement below methods
-    #def Reflect_Object(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Object(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_IsSame_Object(self, EIOS* eios, jobject first, jobject second):
+    # def Reflect_IsSame_Object(self, EIOS* eios, jobject first, jobject second):
     #    pass
 
-    #def Reflect_InstanceOf(self, EIOS* eios, jobject object, const char* cls):
+    # def Reflect_InstanceOf(self, EIOS* eios, jobject object, const char* cls):
     #    pass
 
-    #def Reflect_Release_Object(self, EIOS* eios, jobject object):
+    # def Reflect_Release_Object(self, EIOS* eios, jobject object):
     #    pass
 
-    #def Reflect_Release_Objects(self, EIOS* eios, jobject* objects, std::size_t amount):
+    # def Reflect_Release_Objects(self, EIOS* eios, jobject* objects, std::size_t amount):
     #    pass
 
-    #def Reflect_Bool(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Bool(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Char(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Char(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Byte(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Byte(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Short(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Short(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Int(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Int(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Long(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Long(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Float(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Float(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Double(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Double(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_String(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc, char* output, std::size_t output_size):
+    # def Reflect_String(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc, char* output, std::size_t output_size):
     #    pass
 
-    #def Reflect_Array(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
+    # def Reflect_Array(self, EIOS* eios, jobject object, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Array_With_Size(self, EIOS* eios, jobject object, std::size_t* output_size, const char* cls, const char* field, const char* desc):
+    # def Reflect_Array_With_Size(self, EIOS* eios, jobject object, std::size_t* output_size, const char* cls, const char* field, const char* desc):
     #    pass
 
-    #def Reflect_Array_Size(self, EIOS* eios, jarray array):
+    # def Reflect_Array_Size(self, EIOS* eios, jarray array):
     #    pass
 
-    #def Reflect_Array_Index(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t index, std::size_t length):
+    # def Reflect_Array_Index(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t index, std::size_t length):
     #    pass
 
-    #def Reflect_Array_Index2D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y):
+    # def Reflect_Array_Index2D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y):
     #    pass
 
-    #def Reflect_Array_Index3D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z):
+    # def Reflect_Array_Index3D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z):
     #    pass
 
-    #def Reflect_Array_Index4D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z, std::int32_t w):
+    # def Reflect_Array_Index4D(self, EIOS* eios, jarray array, ReflectionArrayType type, std::size_t length, std::int32_t x, std::int32_t y, std::int32_t z, std::int32_t w):
     #    pass
 
-    #def Reflect_Array_Indices(self, EIOS* eios, jarray array, ReflectionArrayType type, std::int32_t* indices, std::size_t length):
+    # def Reflect_Array_Indices(self, EIOS* eios, jarray array, ReflectionArrayType type, std::int32_t* indices, std::size_t length):
     #    pass
-
-
