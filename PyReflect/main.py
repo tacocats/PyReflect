@@ -27,5 +27,8 @@ if __name__ == "__main__":
     eiosptr = reflect.EIOS_PairClient(client_pid)
     print(type(eiosptr))
 
-    print ("Releasing target")
-    reflect.EIOS_ReleaseTarget(target=eiosptr)
+    #print ("Releasing target")
+    #reflect.EIOS_ReleaseTarget(target=eiosptr)
+
+    print("target dimensions")
+    print ('dimensions: ' + str(reflect.EIOS_GetTargetDimensions(eiosptr)))

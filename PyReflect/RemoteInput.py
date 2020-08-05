@@ -1,5 +1,8 @@
 import platform
 from ctypes import *
+import cppyy
+#from prompt_toolkit.data_structures import Size
+
 
 class RemoteInput:
     """
@@ -16,7 +19,7 @@ class RemoteInput:
 
     ## EIOS
 
-    def EIOS_RequestTarget(self, initstr):
+    def EIOS_RequestTarget(self, initstr) -> c_void_p:
         """
         EIOS* EIOS_RequestTarget(const char* initargs) noexcept;
 
@@ -27,7 +30,7 @@ class RemoteInput:
         :rtype: EIOS
         """
         self.ri.EIOS_RequestTarget.argtypes = [c_char_p]
-        self.ri.EIOS_RequestTarget.rtype = bytes
+        self.ri.EIOS_RequestTarget.rtype = c_void_p
 
         return self.EIOS_RequestTarget(bytes(initstr, encoding='utf8'))
 
@@ -43,8 +46,24 @@ class RemoteInput:
         self.ri.EIOS_ReleaseTarget.argtypes = [c_void_p]
         self.ri.EIOS_ReleaseTarget(target)
 
-    def EIOS_GetTargetDimensions(self, target):
-        pass
+    def EIOS_GetTargetDimensions(self, target: c_void_p):
+        """
+        void EIOS_GetTargetDimensions(EIOS* eios, std::int32_t* width, std::int32_t* height) noexcept;
+
+        :param target: The EIOS target
+        type target: EIOS
+
+        :return: width, height
+        """
+
+        width = c_int32()
+        height = c_int32()
+
+        self.ri.EIOS_GetTargetDimensions.argtypes = [c_void_p, POINTER(c_int32), POINTER(c_int32)]
+        self.ri.EIOS_GetTargetDimensions.restype = None
+        self.ri.EIOS_GetTargetDimensions(target, byref(width), byref(width))
+
+        return [width, height]
 
     def EIOS_GetImageBuffer(self, target):
         pass
