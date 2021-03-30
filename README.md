@@ -44,3 +44,17 @@ client_pid = reflect.EIOS_GetClientPID(0)
 eiosptr = reflect.EIOS_PairClient(client_pid)
 ```
 
+---
+
+## PyReflect Status
+
+There are various builds for the remote, so using the correct one you should be able to get it to work, but these are the environments currently tested on:
+
+| OS                                                | Status   |
+| ------------------------------------------------- | -------- |
+| Windows 10 (32 bit)                               | Untested |
+| Windows 10 (64 bit)                               | Working  |
+| macOS Big Sur (Apple M1)                          | Working  |
+| macOS Big Sur (Intel)                             | Untested |
+| Ubuntu or Linux Distro (32-bit, 64-bit, arm, etc) | Untested |
+
