@@ -179,12 +179,22 @@ class RemoteInput:
 
     ## Reflection
 
-    def EIOS_Inject(self, process_name: str = 'JagexLauncher.exe'):
+    def EIOS_Inject(self, process_name: str = None):
         """
         void EIOS_Inject(const char* process_name) noexcept;
 
         :return: None
         """
+
+        # Set process name based on system
+        if process_name is None:
+            if platform.system() == 'Windows':
+                process_name = 'JagexLauncher.exe'
+            elif platform.system() == 'Darwin':
+                process_name = 'jagexappletviewer'
+            else: # Linux/Other
+                process_name = 'jagexappletviewer'
+
         self.ri.EIOS_Inject.argtypes = [c_char_p]
         self.ri.EIOS_Inject.rtype = None
         self.ri.EIOS_Inject(bytes(process_name, encoding='utf8'))
