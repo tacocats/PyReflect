@@ -129,7 +129,10 @@ dmypy.json
 .pyre/
 
 *.dll
+*.dylib
+*.so
 
 .idea/
 
 remoteinput-export.txt
+.DS_Store
