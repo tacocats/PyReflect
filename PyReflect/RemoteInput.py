@@ -1,6 +1,6 @@
 import platform
 from ctypes import *
-import cppyy
+#import cppyy
 #from prompt_toolkit.data_structures import Size
 
 
@@ -12,7 +12,7 @@ class RemoteInput:
     def __init__(self):
         if platform.system() == 'Windows':
             self.ri = WinDLL('./libremoteinput.dll')
-        elif platform.system() == 'Dawrin':
+        elif platform.system() == 'Darwin':
             self.ri = CDLL('./libremoteinput.dylib')
         else:
             self.ri = CDLL('.libremoteinput.so')
