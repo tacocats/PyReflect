@@ -61,7 +61,7 @@ class RemoteInput:
 
         self.ri.EIOS_GetTargetDimensions.argtypes = [c_void_p, POINTER(c_int32), POINTER(c_int32)]
         self.ri.EIOS_GetTargetDimensions.restype = None
-        self.ri.EIOS_GetTargetDimensions(target, byref(width), byref(width))
+        self.ri.EIOS_GetTargetDimensions(target, byref(width), byref(height))
 
         return [width, height]
 
